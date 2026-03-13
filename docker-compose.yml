@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+
+  frontend:
+    image: vasanthmano/frontend:latest
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    image: vasanthmano/backend:latest
+    container_name: backend
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: task_manager
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+
+volumes:
+  mysql-data:
