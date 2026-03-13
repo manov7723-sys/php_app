@@ -1,8 +1,7 @@
 services:
 
   frontend:
-    image: vasanthmano/frontend:latest
-    platform: linux/amd64
+    image: vasanthmano/frontendphp:latest
     container_name: frontend
     ports:
       - "3000:80"
@@ -10,8 +9,7 @@ services:
       - backend
 
   backend:
-    image: vasanthmano/backend:latest
-    platform: linux/amd64
+    image: vasanthmano/backendphp:latest
     container_name: backend
     ports:
       - "8080:80"
