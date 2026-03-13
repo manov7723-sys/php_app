@@ -2,10 +2,13 @@
 FROM nginx:alpine
 
 # Step2 Set the Working Directory
-COPY . /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
 
-# Step3 Expose
+# Step3 Copy Entire application code
+COPY . .
+
+# Step4 Expose
 EXPOSE 80
 
-# Step4 CMD
-CMD ["nginx", "-g", "daemon off;"]
+# Step5 CMD
+CMD ["ginx", "-g", "daemon off;"]
