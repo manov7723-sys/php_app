@@ -1,7 +1,7 @@
 services:
 
   frontend:
-    image: vasanthmano/frontendphp12:latest
+    image: vasanthmano/frontedphp12:latest
     container_name: frontend
     ports:
       - "3000:80"
