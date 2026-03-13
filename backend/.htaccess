@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/tasks/?$ api/tasks.php [QSA,L]
+RewriteRule ^api/tasks/([0-9]+)/?$ api/tasks.php?id=$1 [QSA,L]
+RewriteRule ^api/health/?$ api/health.php [QSA,L]
