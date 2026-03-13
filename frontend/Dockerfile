@@ -11,4 +11,4 @@ COPY . .
 EXPOSE 80
 
 # Step5 CMD
-CMD ["ginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
