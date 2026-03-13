@@ -71,3 +71,4 @@ http://localhost/php-app/frontend/index.html
 - ✅ Real-time stats in navbar
 - ✅ Responsive design
 - ✅ REST API backend
+ok 
