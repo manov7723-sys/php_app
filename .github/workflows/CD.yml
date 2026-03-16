@@ -1,0 +1,55 @@
+name: CD - Deploy to EC2
+
+on:
+  workflow_run:
+    workflows: ["CI - Build and Push to ECR"]
+    types:
+      - completed
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: 945219712738.dkr.ecr.us-east-1.amazonaws.com
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy to EC2 via Docker Compose
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.EC2_USER }}/php_app
+
+            # Update compose file if needed and pull new images
+            git pull origin main
+
+            # Make IMAGE_TAG available to docker-compose
+            export IMAGE_TAG=${{ env.IMAGE_TAG }}
+
+            # Pull updated images from ECR and recreate containers
+            docker compose pull
+            docker compose up -d --force-recreate
+
+            # Cleanup old images
+            docker image prune -f
+
+            echo "✅ Deployed successfully with tag: $IMAGE_TAG"

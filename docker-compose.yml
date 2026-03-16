@@ -9,7 +9,7 @@ services:
       - backend
 
   backend:
-    image: vasanthmano/backendphp:latest
+    image: image: 945219712738.dkr.ecr.us-east-1.amazonaws.com/myapp1_backend:${IMAGE_TAG:-latest}
     container_name: backend
     ports:
       - "8080:80"

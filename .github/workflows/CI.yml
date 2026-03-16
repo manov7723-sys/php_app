@@ -41,7 +41,7 @@ jobs:
 
       - name: Build and push backend Docker image
         run: |
-          IMAGE="${{ steps.login-ecr.outputs.registry }}/${{ env.BACKEND_REPO }}"
+          IMAGE="945219712738.dkr.ecr.us-east-1.amazonaws.com/${{ env.BACKEND_REPO }}"
     
           # Build image with version tag and latest
           docker build -t $IMAGE:${{ env.IMAGE_TAG }} -t $IMAGE:latest ./backend
@@ -80,7 +80,7 @@ jobs:
 
       - name: Build and push frontend Docker image
         run: |
-          IMAGE="${{ steps.login-ecr.outputs.registry }}/${{ env.FRONTEND_REPO }}"
+          IMAGE="945219712738.dkr.ecr.us-east-1.amazonaws.com/${{ env.FRONTEND_REPO }}"
     
           # Build image with version tag and latest
           docker build -t $IMAGE:${{ env.IMAGE_TAG }} -t $IMAGE:latest ./frontend
