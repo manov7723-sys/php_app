@@ -30,9 +30,6 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Set image tag (first 8 digits of commit SHA)
-        run: echo "IMAGE_TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
-
       - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -55,8 +52,6 @@ jobs:
             docker login --username AWS \
             --password-stdin 945219712738.dkr.ecr.us-east-1.amazonaws.com
 
-            # Make IMAGE_TAG available to docker-compose
-            export IMAGE_TAG=${{ env.IMAGE_TAG }}
 
             # Pull updated images from ECR and recreate containers
             docker compose pull
