@@ -1,7 +1,7 @@
 services:
 
   frontend:
-    image: vasanthmano/frontedphp12:latest
+    image: 945219712738.dkr.ecr.us-east-1.amazonaws.com/myapp1_frontend:${IMAGE_TAG:-latest}
     container_name: frontend
     ports:
       - "3000:80"
@@ -9,7 +9,7 @@ services:
       - backend
 
   backend:
-    image: image: 945219712738.dkr.ecr.us-east-1.amazonaws.com/myapp1_backend:${IMAGE_TAG:-latest}
+    image: 945219712738.dkr.ecr.us-east-1.amazonaws.com/myapp1_backend:${IMAGE_TAG:-latest}
     container_name: backend
     ports:
       - "8080:80"
