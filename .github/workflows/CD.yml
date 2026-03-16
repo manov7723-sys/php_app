@@ -34,16 +34,24 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
+          username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/${{ secrets.EC2_USER }}/php_app
+            # Clone repo if not exists, else pull latest
+            if [ ! -d "/home/ubuntu/php_app" ]; then
+              git clone https://github.com/manov7723-sys/php_app.git /home/ubuntu/php_app
+            fi
 
-            # Update compose file if needed and pull new images
+            cd /home/ubuntu/php_app
+
+            # Pull latest code
             git pull origin main
 
-            # Make IMAGE_TAG available to docker-compose
-            export IMAGE_TAG=${{ env.IMAGE_TAG }}
+            # Login to ECR
+            aws ecr get-login-password --region us-east-1 | \
+            docker login --username AWS \
+            --password-stdin 945219712738.dkr.ecr.us-east-1.amazonaws.com
+
 
             # Pull updated images from ECR and recreate containers
             docker compose pull
@@ -52,4 +60,4 @@ jobs:
             # Cleanup old images
             docker image prune -f
 
-            echo "✅ Deployed successfully with tag: $IMAGE_TAG"
+            echo "✅ Deployed successfully with tag: ${{ env.IMAGE_TAG }}"
