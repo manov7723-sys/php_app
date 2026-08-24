@@ -5,7 +5,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: ns-view
-  namespace: storefront-dev-2
+  namespace: storefront-dev
   labels:
     app.kubernetes.io/managed-by: deepagent
     dda.role.preset: view
@@ -33,7 +33,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: ns-view
-  namespace: storefront-dev-2
+  namespace: storefront-dev
   labels:
     app.kubernetes.io/managed-by: deepagent
     dda.role.preset: view
