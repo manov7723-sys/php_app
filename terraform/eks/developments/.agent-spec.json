@@ -1,0 +1,42 @@
+{
+  "kind": "eks",
+  "spec": {
+    "name": "developments",
+    "region": "us-east-1",
+    "kubernetesVersion": "1.36",
+    "instanceType": "t3.medium",
+    "desiredNodes": 2,
+    "minNodes": 1,
+    "maxNodes": 3,
+    "endpointPublic": true,
+    "createVpc": false,
+    "existingVpcId": "vpc-023dc15715418b42e",
+    "environment": "production",
+    "team": "devops",
+    "publicAccessCidrs": "0.0.0.0/0",
+    "controlPlaneLogs": true,
+    "secretsEncryption": true,
+    "systemDiskSize": 100,
+    "ebsCsi": true,
+    "nodeGroupName": "developments-workers",
+    "capacityType": "ON_DEMAND",
+    "nodeGroups": [
+      {
+        "name": "developments-workers",
+        "instanceType": "t3.medium",
+        "capacityType": "ON_DEMAND",
+        "minNodes": 1,
+        "desiredNodes": 2,
+        "maxNodes": 3,
+        "diskSize": 100
+      }
+    ],
+    "appNodeGroup": false,
+    "accessEntries": [
+      {
+        "principalArn": "arn:aws:iam::400200465532:root",
+        "policy": "AmazonEKSClusterAdminPolicy"
+      }
+    ]
+  }
+}
