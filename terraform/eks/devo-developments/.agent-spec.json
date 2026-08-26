@@ -1,0 +1,56 @@
+{
+  "kind": "eks",
+  "spec": {
+    "name": "devo-developments",
+    "region": "us-east-1",
+    "kubernetesVersion": "1.36",
+    "instanceType": "t3.medium",
+    "desiredNodes": 2,
+    "minNodes": 1,
+    "maxNodes": 3,
+    "endpointPublic": true,
+    "createVpc": false,
+    "existingVpcId": "vpc-023dc15715418b42e",
+    "existingSubnetIds": [
+      "subnet-0d779831a200e94ec",
+      "subnet-04145ffe285d9b5ec",
+      "subnet-01ad8779961e72d6b",
+      "subnet-0d71979fad63f30b1",
+      "subnet-01da8ea28ec913a78",
+      "subnet-070de0195cffae7b6"
+    ],
+    "nodeSubnetIds": [
+      "subnet-04145ffe285d9b5ec",
+      "subnet-01ad8779961e72d6b"
+    ],
+    "environment": "production",
+    "team": "devops",
+    "publicAccessCidrs": "0.0.0.0/0",
+    "controlPlaneLogs": true,
+    "secretsEncryption": true,
+    "systemDiskSize": 100,
+    "ebsCsi": true,
+    "nodeGroupName": "devo-developments-workers",
+    "capacityType": "ON_DEMAND",
+    "nodeGroups": [
+      {
+        "name": "devo-developments-workers",
+        "instanceType": "t3.medium",
+        "capacityType": "ON_DEMAND",
+        "minNodes": 1,
+        "desiredNodes": 2,
+        "maxNodes": 3,
+        "diskSize": 100
+      }
+    ],
+    "appNodeGroup": false,
+    "accessEntries": [
+      {
+        "principalArn": "arn:aws:iam::400200465532:root",
+        "policy": "AmazonEKSClusterAdminPolicy"
+      }
+    ],
+    "stateBucket": "new-deeep",
+    "stateRegion": "us-east-1"
+  }
+}
